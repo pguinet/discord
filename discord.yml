@@ -1,0 +1,27 @@
+---
+# Install or update Discord Canary
+#
+# Lancer avec élévation de privilèges :
+# ansible-playbook discord.yml --ask-become-pass
+
+- hosts: localhost
+  become: yes
+  tasks:  
+    - name: Install requisite
+      package:
+        name: libatomic1
+        state: latest
+    - name: Download source
+      ansible.builtin.unarchive:
+        src: https://discordapp.com/api/download/canary?platform=linux&format=tar.gz
+        dest: /usr/share
+        remote_src: yes
+      notify: postinst
+    - name: Copy launcher
+      ansible.builtin.copy:
+        src: discord-canary.desktop
+        dest: /usr/share/applications/discord-canary.desktop
+  handlers:
+    - name: postinst
+      ansible.builtin.command:
+        cmd: /usr/share/DiscordCanary/postinst.sh
