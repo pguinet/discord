@@ -1,2 +1,2 @@
 # discord
-Un playbook Ansible pour installer Discord Canary sur Opensuse
+Un playbook Ansible pour installer ey mettre à jour Discord Canary sur Opensuse
